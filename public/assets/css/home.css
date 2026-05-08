@@ -90,6 +90,7 @@
 .hero h1 {
     color: #ffffff;
     text-align: center;
+    font-weight: 600;
 }
 
 .gradient {
@@ -97,4 +98,22 @@
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.hero-content {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.hero-content .column {
+    width: 100%;
+    padding: 2.5rem;
+    text-align: center;
+    color: #ffffff;
+}
+
+.hero-content img {
+    height: 6rem;
+    width: 6rem;
 }
