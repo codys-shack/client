@@ -23,6 +23,11 @@ body {
     position: fixed;
     top: 0;
     z-index: 10;
+    transition: 0.25s;
+}
+
+.navbar-scrolled {
+    background-color: #111827 !important;
 }
 
 .nav-logo {

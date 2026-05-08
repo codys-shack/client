@@ -39,3 +39,14 @@ $(document).ready(function () {
     });
 
 });
+
+// Navbar
+
+window.addEventListener('scroll', function() {
+    const navbar = document.getElementById('navbar');
+    if (window.scrollY > 75) {
+        navbar.classList.add('navbar-scrolled');
+    } else {
+        navbar.classList.remove('navbar-scrolled');
+    }
+});
