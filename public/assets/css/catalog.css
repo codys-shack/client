@@ -1,0 +1,75 @@
+/* Catalog Section */
+
+#catalog {
+    margin: 115px 3rem 3rem 3rem;
+}
+
+#catalog h1 {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Game Cards */
+
+.card-container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    flex-basis: calc(25% - 0.75rem);
+    aspect-ratio: 3/2;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.125s;
+    cursor: pointer;
+    background-blend-mode: darken;
+    border: none;
+    font-family: "Inter", sans-serif;
+}
+
+@media (max-width: 1000px) {
+    .card {
+        flex-basis: calc(33.33% - 0.75rem);
+    }
+
+}
+
+@media (max-width: 750px) {
+    .card {
+        flex-basis: calc(50% - 0.75rem);
+    }
+}
+
+@media (max-width: 550px) {
+    .card-container {
+        flex-direction: column
+    }
+    .card {
+        height: 20vh !important;
+        aspect-ratio: 3/2;
+        flex-basis: 100%;
+    }
+}
+
+.card h2 {
+    color: #ffffff;
+    font-size: 2rem;
+    opacity: 0%;
+    transition: 0.125s;
+    font-weight: 500;
+}
+
+.card:hover {
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.card:hover h2 {
+    opacity: 100%;
+}
