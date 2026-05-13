@@ -34,6 +34,13 @@
     font-family: "Inter", sans-serif;
 }
 
+@media (min-width: 1750px) {
+    .card {
+        flex-basis: calc(19.95% - 0.75rem);
+    }
+
+}
+
 @media (max-width: 1000px) {
     .card {
         flex-basis: calc(33.33% - 0.75rem);
@@ -47,12 +54,9 @@
     }
 }
 
-@media (max-width: 550px) {
-    .card-container {
-        flex-direction: column
-    }
+@media (max-width: 650px) {
     .card {
-        height: 20vh !important;
+        width: 100% !important;
         aspect-ratio: 3/2;
         flex-basis: 100%;
     }

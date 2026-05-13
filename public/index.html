@@ -19,9 +19,9 @@
         <a href="/" class="nav-logo"><img src="./assets/images/logos/logo_square.png" alt="Cody's Shack Logo" height="70"></a>
         <ul class="nav-links">
             <li><a href="/catalog/">Games</a></li>
-            <li><a href="/how-to-play">How to Play</a></li>
-            <li><a href="/auth/">Sign In</a></li></li>
-            <li><a href="#memberships" class="button">Play Now</a></li></li>
+            <li><a href="../how-to-play" id="how-to-play-link">How to Play</a></li>
+            <li><a href="../auth/" id="sign-in-link">Sign In</a></li>
+            <li><a href="#memberships" class="button" id="play-now-link">Play Now</a></li>
         </ul>
     </nav>
 
@@ -29,7 +29,7 @@
         <div class="header-content">
             <h1 class="splash-text">Play PC games,</h1>
             <h1 class="splash-text splash-bold">right in your browser.</h1>
-            <a href="#memberships" class="button">Play Now</a>
+            <a href="#memberships" class="button" id="play-now-splash-link">Play Now</a>
             <p class="disclaimer">By signing up for Cody's Shack, you agree to our <a href="/legal/terms">Terms</a> and <a href="/legal/privacy">Privacy Policy</a>.</p>
         </div>
     </section>
@@ -63,7 +63,7 @@
             <button id="membership-type-yearly">Yearly</button>
         </div>
         <div id="membership-viewer-monthly" class="membership-viewer active">
-            <div class="membership">
+            <div class="membership membership-free">
                 <h1>Free Pass</h1>
                 <p class="description">Always free, forever.</p>
                 <p class="price">$0.00 <span class="bill-time">/forever</span></p>
@@ -72,10 +72,10 @@
                     <li><span>&gt;</span>Includes ads</li>
                     <li><span>&gt;</span>Access to select games</li>
                 </ul>
-                <a href="#">Join for Free</a>
+                <a href="/auth/join">Join for Free</a>
                 <p class="sold-out">Sold Out</p>
             </div>
-            <div class="membership">
+            <div class="membership membership-exp-monthly">
                 <h1>Experience Pass</h1>
                 <p class="description">Premium experience without the premium price.</p>
                 <p class="price">$8.99 <span class="bill-time">/month</span></p>
@@ -86,10 +86,10 @@
                     <li><span>&gt;</span>Priority in game queues</li>
                     <li><span>&gt;</span>Play select games on devices other than PC</li>
                 </ul>
-                <a href="#">Join Now</a>
+                <a href="/auth/join">Join Now</a>
                 <p class="sold-out">Sold Out</p>
             </div>
-            <div class="membership">
+            <div class="membership membership-prem-monthly">
                 <h1>Premier Pass</h1>
                 <p class="description">Get a month filled with high-res gaming anywhere in the world<sup>5</sup></p>
                 <p class="price">$18.99 <span class="bill-time">/month</span></p>
@@ -101,12 +101,12 @@
                     <li><span>&gt;</span>Play any game, anywhere, on any device<sup>5</sup></li>
                     <li><span>&gt;</span>Gain early access to high-res gaming prototypes</li>
                 </ul>
-                <a href="#" class="last-btn">Join Now</a>
+                <a href="/auth/join" class="last-btn">Join Now</a>
                 <p class="sold-out">Sold Out</p>
             </div>
         </div>
         <div id="membership-viewer-yearly" class="membership-viewer">
-            <div class="membership">
+            <div class="membership membership-free">
                 <h1>Free Pass</h1>
                 <p class="description">Always free, forever.</p>
                 <p class="price">$0.00 <span class="bill-time">/forever</span></p>
@@ -115,10 +115,10 @@
                     <li><span>&gt;</span>Includes ads</li>
                     <li><span>&gt;</span>Access to select games</li>
                 </ul>
-                <a href="#">Join for Free</a>
+                <a href="/auth/join">Join for Free</a>
                 <p class="sold-out">Sold Out</p>
             </div>
-            <div class="membership">
+            <div class="membership membership-exp-yearly">
                 <h1>Experience Pass <span>SAVE 25%</span></h1>
                 <p class="description">Premium experience without the premium price.</p>
                 <p class="price">$79.99 <span class="bill-time">/year</span></p>
@@ -129,10 +129,10 @@
                     <li><span>&gt;</span>Priority in game queues</li>
                     <li><span>&gt;</span>Play select games on devices other than PC</li>
                 </ul>
-                <a href="#">Join Now</a>
+                <a href="/auth/join">Join Now</a>
                 <p class="sold-out">Sold Out</p>
             </div>
-            <div class="membership">
+            <div class="membership membership-prem-yearly">
                 <h1>Premier Pass <span>SAVE 35%</span></h1>
                 <p class="description">Get a month filled with high-res gaming anywhere in the world<sup>5</sup></p>
                 <p class="price">$149.99 <span class="bill-time">/year</span></p>
@@ -144,7 +144,7 @@
                     <li><span>&gt;</span>Play any game, anywhere, on any device<sup>5</sup></li>
                     <li><span>&gt;</span>Gain early access to high-res gaming prototypes</li>
                 </ul>
-                <a href="#" class="last-btn">Join Now</a>
+                <a href="/auth/join" class="last-btn">Join Now</a>
                 <p class="sold-out">Sold Out</p>
             </div>
         </div>
@@ -189,6 +189,8 @@
         </div>
     </div>
 
-    <script src="./assets/js/global.js"></script>
+    <script type="module" src="./assets/js/global.js"></script>
+    <script src="./assets/js/standard/home.js"></script>
+    <script type="module" src="./assets/js/auth/statekeeper.js"></script>
 </body>
 </html>

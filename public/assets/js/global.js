@@ -1,4 +1,23 @@
-// Helper: set cookie
+// Firebase Config
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCrhw8aGQZ0nQLYfw7vICaIGXelpluaJ_U",
+  authDomain: "codys-shack-main.firebaseapp.com",
+  projectId: "codys-shack-main",
+  storageBucket: "codys-shack-main.firebasestorage.app",
+  messagingSenderId: "303523012032",
+  appId: "1:303523012032:web:ea83a3e4c59edfced73c25",
+  measurementId: "G-DBCQ2CX7Y1"
+};
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+export const auth = getAuth(app);
+
+// Cookies Pop-up
 function setCookie(name, value, days) {
     var expires = "";
     if (days) {
@@ -9,7 +28,6 @@ function setCookie(name, value, days) {
     document.cookie = name + "=" + value + expires + "; path=/";
 }
 
-// Helper: get cookie
 function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
@@ -23,7 +41,6 @@ function getCookie(name) {
 
 $(document).ready(function () {
 
-    // Show banner only if cookie not set
     if (!getCookie("cookieConsent")) {
         setTimeout(function () {
             $("#cookieConsent")
@@ -32,7 +49,6 @@ $(document).ready(function () {
         }, 500);
     }
 
-    // Accept cookies (class selector)
     $(".cookieConsentOK").on("click", function () {
         setCookie("cookieConsent", "true", 365);
         $("#cookieConsent").fadeOut(200);
@@ -41,7 +57,6 @@ $(document).ready(function () {
 });
 
 // Navbar
-
 window.addEventListener('scroll', function() {
     const navbar = document.getElementById('navbar');
     if (window.scrollY > 75) {
@@ -49,28 +64,4 @@ window.addEventListener('scroll', function() {
     } else {
         navbar.classList.remove('navbar-scrolled');
     }
-});
-
-// Memberships
-
-const monthly_membership_button = document.getElementById('membership-type-monthly');
-const yearly_membership_button = document.getElementById('membership-type-yearly');
-
-const monthly_memberships = document.getElementById('membership-viewer-monthly');
-const yearly_memberships = document.getElementById('membership-viewer-yearly');
-
-monthly_membership_button.addEventListener('click', function() {
-    monthly_membership_button.classList.add('active');
-    yearly_membership_button.classList.remove('active');
-
-    monthly_memberships.style.display = 'flex';
-    yearly_memberships.style.display = 'none';
-});
-
-yearly_membership_button.addEventListener('click', function() {
-    yearly_membership_button.classList.add('active');
-    monthly_membership_button.classList.remove('active');
-
-    yearly_memberships.style.display = 'flex';
-    monthly_memberships.style.display = 'none';
 });

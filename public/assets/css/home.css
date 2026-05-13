@@ -118,6 +118,19 @@
     width: 6rem;
 }
 
+@media (max-width: 925px) {
+    .hero-content {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+    }
+
+    .hero-content .column {
+        width: 75vw;
+    }
+
+}
+
 /* Memberships Section */
 
 #memberships {
@@ -174,6 +187,15 @@
     border-radius: 8px;
     display: flex;
     flex-direction: column;
+}
+
+@media (max-width: 1250px) {
+    .membership-viewer {
+        flex-direction: column;
+    }
+    .membership {
+        width: 75vw;
+    }
 }
 
 .membership h1 {

@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalog | Cody's Shack</title>
+    <title>Sign In | Cody's Shack</title>
 
     <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/catalog.css">
+    <link rel="stylesheet" href="../assets/css/auth.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,6 +15,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+        <div class="container">
+
+
     <nav id="navbar">
         <a href="/" class="nav-logo"><img src="../assets/images/logos/logo_square.png" alt="Cody's Shack Logo" height="70"></a>
         <ul class="nav-links">
@@ -25,10 +28,36 @@
         </ul>
     </nav>
 
-    <section id="catalog">
-        <h1>All Games</h1>
-        <div class="card-container"></div>
-    </section>
+    <div class="auth-container">
+        <div class="auth-card" id="auth-card">
+            <h1 id="auth-title">Sign In</h1>
+            <p id="auth-subtitle">Sign in to your account to continue.</p>
+            
+            <form id="auth-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" id="submit-btn" class="auth-btn">Sign In</button>
+            </form>
+
+            <div class="auth-toggle">
+                <p id="toggle-msg">Don't have an account? <a href="/auth/join">Create Account</a></p>
+            </div>
+
+            <div id="error-message" class="error-msg"></div>
+        </div>
+
+        <div class="auth-card" id="user-profile" style="display: none;">
+            <h1>Welcome!</h1>
+            <p id="user-email-display"></p>
+            <button id="logout-btn" class="auth-btn logout-btn">Log Out</button>
+        </div>
+    </div>
 
     <footer>
         <div class="footer-content">
@@ -36,7 +65,7 @@
                 <h5>Info</h5>
                 <ul>
                     <li><a href="/catalog/">Games</a></li>
-                    <li><a href="#memberships">Memberships</a></li>
+                    <li><a href="/#memberships">Memberships</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -58,18 +87,9 @@
             <p>&copy; <span id="currentYear"><script>document.write(new Date().getFullYear());</script></span> Cody's Shack Systems</p>
         </div>
     </footer>
-
-    <div id="cookieConsent">
-        <div>
-            We use cookies to enhance user experience, analyze website traffic, and keep track of local user data.
-            <a href="javascript:window.history.back()">Exit Site</a>
-        </div>
-        <div>
-            <a class="cookieConsentOK">Accept</a>
-        </div>
     </div>
 
     <script type="module" src="../assets/js/global.js"></script>
-    <script src="../assets/js/standard/catalog.js"></script>
+    <script type="module" src="../assets/js/auth/auth.js"></script>
 </body>
 </html>

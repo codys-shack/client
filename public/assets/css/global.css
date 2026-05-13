@@ -91,6 +91,12 @@ html {
     color: #ffffff !important;
 }
 
+@media (max-width: 650px) {
+    #how-to-play-link, #sign-in-link {
+        display: none;
+    }
+}
+
 /* Footer */
 
 footer {

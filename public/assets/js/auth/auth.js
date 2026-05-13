@@ -1,0 +1,61 @@
+import { auth } from "../global.js";
+import { 
+    signInWithEmailAndPassword, 
+    createUserWithEmailAndPassword, 
+    signOut, 
+    onAuthStateChanged 
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+$(document).ready(function() {
+    const authForm = $('#auth-form');
+    const errorMsg = $('#error-message');
+    const authCard = $('#auth-card');
+    const userProfile = $('#user-profile');
+    const userEmailDisplay = $('#user-email-display');
+    const logoutBtn = $('#logout-btn');
+
+    // Determine if we are on the Sign In or Create Account page
+    const isSignIn = !window.location.pathname.includes('join.html');
+
+    // Handle form submission
+    authForm.on('submit', async function(e) {
+        e.preventDefault();
+        const email = $('#email').val();
+        const password = $('#password').val();
+        errorMsg.hide();
+
+        try {
+            if (isSignIn) {
+                await signInWithEmailAndPassword(auth, email, password);
+            } else {
+                await createUserWithEmailAndPassword(auth, email, password);
+            }
+        } catch (error) {
+            console.error("Auth Error:", error);
+            errorMsg.text(error.message).show();
+        }
+    });
+
+    // Handle logout
+    logoutBtn.on('click', async function() {
+        try {
+            await signOut(auth);
+        } catch (error) {
+            console.error("Logout Error:", error);
+        }
+    });
+
+    // Monitor auth state
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // User is signed in
+            authCard.hide();
+            userProfile.show();
+            userEmailDisplay.text(user.email);
+        } else {
+            // User is signed out
+            userProfile.hide();
+            authCard.show();
+        }
+    });
+});
