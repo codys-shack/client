@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Cody's Shack</title>
+
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/checkout.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav id="navbar">
+        <a href="/" class="nav-logo"><img src="../assets/images/logos/logo_square.png" alt="Cody's Shack Logo" height="70"></a>
+        <ul class="nav-links">
+            <li><a href="/catalog/">Games</a></li>
+            <li><a href="/">Home</a></li>
+        </ul>
+    </nav>
+
+    <main class="checkout-page">
+        <div class="checkout-container">
+            <div class="checkout-summary">
+                <h1>Complete Your Purchase</h1>
+                <div class="product-details">
+                    <h2>Premier Pass</h2>
+                    <p class="product-description">Unlimited session time, no ads, access to all games, and more.</p>
+                    <div class="price-display">
+                        <span class="price-amount" id="priceAmount">$18.99</span>
+                        <span class="price-period">/month</span>
+                    </div>
+                    <ul class="benefits-list">
+                        <li>Unlimited session time</li>
+                        <li>No ads</li>
+                        <li>Access to all games</li>
+                        <li>Bypass game queues</li>
+                        <li>Play any game, anywhere, on any device</li>
+                        <li>Early access to high-res gaming prototypes</li>
+                    </ul>
+                </div>
+                <div class="secure-badge">
+                    <span>Powered by Polar</span>
+                </div>
+            </div>
+
+            <div class="checkout-form">
+                <div id="errorMessage" class="error-message" style="display:none"></div>
+
+                <div id="loadingView" class="loading-view">
+                    <span class="spinner"></span>
+                    <p>Preparing checkout...</p>
+                </div>
+
+                <form id="checkoutForm" style="display:none">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Full Name <span class="optional">(optional)</span></label>
+                        <input type="text" id="name" name="name" placeholder="John Doe">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Card Number</label>
+                        <div id="card-number" class="stripe-element"></div>
+                        <div id="card-number-errors" class="field-error" role="alert"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label>Expiry Date</label>
+                            <div id="card-expiry" class="stripe-element"></div>
+                            <div id="card-expiry-errors" class="field-error" role="alert"></div>
+                        </div>
+                        <div class="form-group half">
+                            <label>CVC</label>
+                            <div id="card-cvc" class="stripe-element"></div>
+                            <div id="card-cvc-errors" class="field-error" role="alert"></div>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="submit-btn">
+                        <span class="btn-text">Pay <span id="submitPrice">$18.99</span>/month</span>
+                        <span class="btn-loading" style="display:none">
+                            <span class="spinner small"></span> Processing payment...
+                        </span>
+                    </button>
+
+                    <p class="form-footer">
+                        By purchasing, you agree to our <a href="/legal/terms">Terms of Service</a> and <a href="/legal/privacy">Privacy Policy</a>.
+                    </p>
+                </form>
+
+                <div id="successView" style="display:none">
+                    <div class="success-icon">&#10003;</div>
+                    <h2>Payment Successful!</h2>
+                    <p>Welcome to Premier Pass. Your membership is now active.</p>
+                    <a href="/" class="success-btn">Start Playing</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h5>Info</h5>
+                <ul>
+                    <li><a href="/catalog/">Games</a></li>
+                    <li><a href="/">Memberships</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h5>Quick Links</h5>
+                <ul>
+                    <li><a href="/help/" target="_blank">Help Desk</a></li>
+                    <li><a href="/developers/" target="_blank">Developer Portal</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h5>Socials</h5>
+                <ul>
+                    <li><a href="" target="_blank">Discord Server</a></li>
+                    <li><a href="https://www.youtube.com/@codysshack" target="_blank">YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; <span id="currentYear"><script>document.write(new Date().getFullYear());</script></span> Cody's Shack Systems</p>
+        </div>
+    </footer>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        let checkoutData = null;
+        let stripe = null;
+        let elements = null;
+        let cardNumber = null;
+        let cardExpiry = null;
+        let cardCvc = null;
+
+        const loadingView = document.getElementById('loadingView');
+        const form = document.getElementById('checkoutForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const errorMsg = document.getElementById('errorMessage');
+        const successView = document.getElementById('successView');
+
+        function showError(msg) {
+            errorMsg.textContent = msg;
+            errorMsg.style.display = 'block';
+        }
+
+        function hideError() {
+            errorMsg.textContent = '';
+            errorMsg.style.display = 'none';
+        }
+
+        function setLoading(loading) {
+            submitBtn.disabled = loading;
+            document.querySelector('.btn-text').style.display = loading ? 'none' : 'inline';
+            document.querySelector('.btn-loading').style.display = loading ? 'inline' : 'none';
+        }
+
+        function formatPrice(amount, currency) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: currency.toUpperCase(),
+            }).format(amount / 100);
+        }
+
+        async function initCheckout() {
+            try {
+                const res = await fetch('/api/checkout/create', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({}),
+                });
+
+                checkoutData = await res.json();
+
+                if (!res.ok) {
+                    throw new Error(checkoutData.error || 'Failed to initialize checkout');
+                }
+
+                if (!checkoutData.publishableKey) {
+                    throw new Error('Payment configuration error - no publishable key');
+                }
+
+                const formatted = formatPrice(checkoutData.amount, checkoutData.currency);
+                document.getElementById('priceAmount').textContent = formatted;
+                document.getElementById('submitPrice').textContent = formatted;
+
+                stripe = Stripe(checkoutData.publishableKey);
+
+                elements = stripe.elements({
+                    fonts: [
+                        {
+                            cssSrc: 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap',
+                        },
+                    ],
+                    appearance: {
+                        theme: 'night',
+                        variables: {
+                            colorPrimary: '#3730a3',
+                            colorBackground: '#1f2937',
+                            colorText: '#ffffff',
+                            colorDanger: '#fca5a5',
+                            fontFamily: 'Inter, sans-serif',
+                            fontSizeBase: '15px',
+                            borderRadius: '8px',
+                            spacingGridRow: '16px',
+                            spacingGridColumn: '16px',
+                        },
+                        rules: {
+                            '.Input': {
+                                border: '1px solid #374151',
+                                padding: '12px 14px',
+                                boxShadow: 'none',
+                            },
+                            '.Input:focus': {
+                                border: '1px solid #3730a3',
+                                boxShadow: 'none',
+                            },
+                            '.Input::placeholder': {
+                                color: '#6b7280',
+                            },
+                            '.Label': {
+                                fontSize: '14px',
+                                fontWeight: '500',
+                                color: '#d1d5db',
+                                marginBottom: '6px',
+                            },
+                            '.Error': {
+                                color: '#fca5a5',
+                                fontSize: '13px',
+                                marginTop: '4px',
+                            },
+                        },
+                    },
+                });
+
+                cardNumber = elements.create('cardNumber');
+                cardExpiry = elements.create('cardExpiry');
+                cardCvc = elements.create('cardCvc');
+
+                cardNumber.mount('#card-number');
+                cardExpiry.mount('#card-expiry');
+                cardCvc.mount('#card-cvc');
+
+                cardNumber.on('change', (e) => {
+                    displayError('#card-number-errors', e);
+                });
+                cardExpiry.on('change', (e) => {
+                    displayError('#card-expiry-errors', e);
+                });
+                cardCvc.on('change', (e) => {
+                    displayError('#card-cvc-errors', e);
+                });
+
+                loadingView.style.display = 'none';
+                form.style.display = 'block';
+
+            } catch (err) {
+                console.error('Checkout init error:', err);
+                loadingView.innerHTML = `
+                    <p style="color:#fca5a5;">${err.message}</p>
+                    <button onclick="location.reload()" class="retry-btn">Retry</button>
+                `;
+            }
+        }
+
+        function displayError(selector, event) {
+            const el = document.querySelector(selector);
+            if (event.error) {
+                el.textContent = event.error.message;
+            } else {
+                el.textContent = '';
+            }
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideError();
+
+            const email = document.getElementById('email').value.trim();
+            const name = document.getElementById('name').value.trim();
+
+            if (!email) { showError('Please enter your email address.'); return; }
+
+            setLoading(true);
+
+            try {
+                const { error: tokenError, confirmationToken } = await stripe.createConfirmationToken({
+                    elements,
+                    params: {
+                        payment_method_data: {
+                            billing_details: {
+                                name: name || undefined,
+                                email: email,
+                            },
+                        },
+                    },
+                });
+
+                if (tokenError) {
+                    setLoading(false);
+                    if (tokenError.type === 'validation_error') {
+                        showError(tokenError.message);
+                    } else {
+                        showError(tokenError.message || 'Failed to process card details.');
+                    }
+                    return;
+                }
+
+                const res = await fetch('/api/checkout/confirm', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        clientSecret: checkoutData.clientSecret,
+                        confirmationTokenId: confirmationToken.id,
+                        customerEmail: email,
+                        customerName: name || undefined,
+                    }),
+                });
+
+                const result = await res.json();
+
+                if (!res.ok) {
+                    setLoading(false);
+                    showError(result.error || 'Payment was declined. Please try a different card.');
+                    return;
+                }
+
+                form.style.display = 'none';
+                successView.style.display = 'block';
+
+            } catch (err) {
+                setLoading(false);
+                console.error('Payment error:', err);
+                showError(err.message || 'An unexpected error occurred. Please try again.');
+            }
+        });
+
+        initCheckout();
+    </script>
+</body>
+</html>
