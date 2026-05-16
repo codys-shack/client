@@ -2,6 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCrhw8aGQZ0nQLYfw7vICaIGXelpluaJ_U",
@@ -16,6 +17,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export const auth = getAuth(app);
+export const db = getFirestore(app);
+
+export async function getMembership(user) {
+  const u = user || auth.currentUser;
+  if (!u) throw new Error('Not authenticated');
+  const token = await u.getIdToken();
+  const res = await fetch('/api/membership/info', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ idToken: token }),
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || 'Failed to get membership info');
+  const activeSubscription = (data.polarSubscriptions || []).find(s => s.status === 'active') || null;
+  return { ...data, activeSubscription };
+}
 
 // Cookies Pop-up
 function setCookie(name, value, days) {

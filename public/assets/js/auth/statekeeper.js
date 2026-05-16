@@ -7,7 +7,8 @@ $(document).ready(function() {;
     onAuthStateChanged(auth, (user) => {
         if (user) {
             // User is signed in
-            $('#navbar .nav-links').prepend(`<li><a href="/home/">Play Now</a></li>`);
+            $('#navbar .nav-links').prepend(`<li><a href="/home/" class="play-now-signed-in-link">Play Now</a></li>`);
+            $('#navbar .nav-links').append(`<li><a href="/account">Account</a></li>`);
             $('#navbar .nav-links').append(`<li><a href="#" id="logout">Logout</a></li>`);
             $('#sign-in-link').remove()
             $('#play-now-link').remove();

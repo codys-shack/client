@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account - Cody's Shack</title>
+
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/account.css">
+
+    <script type="module" src="../assets/js/global.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav id="navbar">
+        <a href="/" class="nav-logo"><img src="../assets/images/logos/logo_square.png" alt="Cody's Shack Logo" height="70"></a>
+        <ul class="nav-links">
+            <li><a href="/catalog/">Games</a></li>
+            <li><a href="/">Home</a></li>
+        </ul>
+    </nav>
+
+    <main class="account-page">
+        <div class="account-container">
+            <h1>My Account</h1>
+
+            <div id="loadingView" class="loading-view">
+                <span class="spinner"></span>
+                <p>Loading your account...</p>
+            </div>
+
+            <div id="accountView" class="hidden">
+                <div class="account-section">
+                    <h2>Account Info</h2>
+                    <p><strong>Email:</strong> <span id="accountEmail"></span></p>
+                </div>
+
+                <div class="account-section">
+                    <h2>Membership</h2>
+                    <div id="membershipDetails">
+                        <p id="noMembership" class="hidden">You don't have an active membership.</p>
+                        <div id="hasMembership" class="hidden">
+                            <p><strong>Plan:</strong> <span id="planName"></span></p>
+                            <p><strong>Status:</strong> <span id="planStatus"></span></p>
+                            <p id="renewalInfo"></p>
+                            <p id="cancelStatus" class="hidden"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="cancelSection" class="account-section hidden">
+                    <h2>Manage Subscription</h2>
+                    <p>Your subscription will continue until the end of the current billing period.</p>
+                    <button id="cancelBtn" class="cancel-btn">Cancel Subscription</button>
+                    <div id="cancelConfirm" class="hidden">
+                        <p class="warning">Are you sure? You'll lose access at the end of your billing period.</p>
+                        <button id="confirmCancelBtn" class="cancel-btn danger">Yes, Cancel</button>
+                        <button id="keepBtn" class="keep-btn">Keep Subscription</button>
+                    </div>
+                </div>
+
+                <div id="reactivateSection" class="account-section hidden">
+                    <h2>Manage Subscription</h2>
+                    <p>Your subscription is set to cancel at the end of the current period.</p>
+                    <button id="reactivateBtn" class="submit-btn">Reactivate Subscription</button>
+                </div>
+
+                <div id="upgradeSection" class="account-section hidden">
+                    <h2>Change Plan</h2>
+                    <p>Switch to a different plan. Your current plan will be replaced immediately.</p>
+                    <div id="planOptions"></div>
+                </div>
+            </div>
+
+            <div id="errorView" class="loading-view hidden">
+                <p class="error-text" id="errorMessage"></p>
+                <button onclick="location.reload()" class="retry-btn">Retry</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h5>Info</h5>
+                <ul>
+                    <li><a href="/catalog/">Games</a></li>
+                    <li><a href="../how-to-play" id="how-to-play-link">How to Play</a></li>
+                    <li><a href="../auth/" id="sign-in-link">Sign In</a></li>
+                    <li><a href="#memberships" class="button" id="play-now-link">Play Now</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h5>Quick Links</h5>
+                <ul>
+                    <li><a href="/help/" target="_blank">Help Desk</a></li>
+                    <li><a href="/developers/" target="_blank">Developer Portal</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h5>Socials</h5>
+                <ul>
+                    <li><a href="" target="_blank">Discord Server</a></li>
+                    <li><a href="https://www.youtube.com/@codysshack" target="_blank">YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; <span id="currentYear"><script>document.write(new Date().getFullYear());</script></span> Cody's Shack Systems</p>
+        </div>
+    </footer>
+
+    <script type="module" src="../assets/js/auth/statekeeper.js"></script>
+    <script type="module" src="../assets/js/account.js"></script>
+</body>
+</html>

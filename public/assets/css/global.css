@@ -91,8 +91,8 @@ html {
     color: #ffffff !important;
 }
 
-@media (max-width: 650px) {
-    #how-to-play-link, #sign-in-link {
+@media (max-width: 700px) {
+    #how-to-play-link, #sign-in-link, .play-now-signed-in-link {
         display: none;
     }
 }

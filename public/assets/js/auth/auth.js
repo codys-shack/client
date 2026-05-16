@@ -48,12 +48,16 @@ $(document).ready(function() {
     // Monitor auth state
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            // User is signed in
             authCard.hide();
             userProfile.show();
             userEmailDisplay.text(user.email);
+
+            const params = new URLSearchParams(window.location.search);
+            const redirect = params.get('redirect');
+            if (redirect) {
+                window.location.href = redirect;
+            }
         } else {
-            // User is signed out
             userProfile.hide();
             authCard.show();
         }
