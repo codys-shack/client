@@ -7,7 +7,6 @@
 .checkout-page {
     min-height: 100vh;
     background-color: #000000;
-    padding-top: 100px;
     padding-bottom: 40px;
     display: flex;
     justify-content: center;
@@ -22,9 +21,13 @@
     padding: 0 20px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
+    .checkout-summary, .checkout-form {
+        width: calc(100% - 60px);
+    }
     .checkout-container {
         flex-direction: column;
+        padding: 20px
     }
 }
 

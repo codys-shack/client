@@ -96,6 +96,36 @@ function updateStateOptions() {
     const plan = params.get('plan');
     const planData = PLANS[plan];
 
+    // Auto sign-in from iOS token if present
+    const iosToken = params.get('idToken');
+
+    if (iosToken) {
+        try {
+            const { signInWithCustomToken, signInWithCredential, GoogleAuthProvider } = 
+                await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
+            
+            // Exchange the ID token for a credential
+            const { OAuthProvider, signInWithCredential: signIn } = 
+                await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
+
+            // Verify token on server and get a custom token back
+            const res = await fetch('/api/auth/exchange-token', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ idToken: iosToken })
+            });
+            const data = await res.json();
+
+            if (data.customToken) {
+                const { signInWithCustomToken } = 
+                    await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
+                await signInWithCustomToken(auth, data.customToken);
+            }
+        } catch (err) {
+            console.error('Auto sign-in failed:', err);
+        }
+    }
+
     if (!planData) {
         document.getElementById('loadingView').innerHTML = '<p class="error-text">Invalid plan selected. Please go back and choose a membership.</p><a href="/" class="retry-btn">Go Home</a>';
         return;

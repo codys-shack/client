@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Cody's Shack</title>
+
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/checkout.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="checkout-page">
+        <div class="checkout-container">
+            <div class="checkout-summary">
+                <h1>Complete Your Purchase</h1>
+                <div class="product-details">
+                    <h2 id="productName"></h2>
+                    <p class="product-description" id="productDescription"></p>
+                    <div class="price-display">
+                        <span class="price-amount" id="priceAmount"></span>
+                        <span class="price-period" id="pricePeriod"></span>
+                    </div>
+                    <ul class="benefits-list" id="benefitsList">
+                    </ul>
+                </div>
+                <div class="secure-badge">
+                    <span>Secure Checkout</span>
+                </div>
+            </div>
+
+            <div class="checkout-form">
+                <div id="errorMessage" class="error-message hidden"></div>
+
+                <div id="loadingView" class="loading-view">
+                    <span class="spinner"></span>
+                    <p>Preparing checkout...</p>
+                </div>
+
+                <form id="checkoutForm" class="hidden">
+                    <div id="replaceWarning" class="replace-warning hidden"></div>
+                    <input type="hidden" id="email" name="email">
+
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="John Doe" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="addressLine1">Address Line 1</label>
+                        <input type="text" id="addressLine1" name="addressLine1" placeholder="123 Main St" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="addressLine2">Address Line 2 <span class="optional">(optional)</span></label>
+                        <input type="text" id="addressLine2" name="addressLine2" placeholder="Apt 4B">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city" placeholder="San Francisco" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="state">State / Province</label>
+                            <select id="state" name="state" required></select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="postalCode">Postal Code</label>
+                            <input type="text" id="postalCode" name="postalCode" placeholder="94105" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="country">Country</label>
+                            <select id="country" name="country" required>
+                                <option value="US">United States</option>
+                                <option value="CA">Canada</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="AU">Australia</option>
+                                <option value="DE">Germany</option>
+                                <option value="FR">France</option>
+                                <option value="JP">Japan</option>
+                                <option value="BR">Brazil</option>
+                                <option value="IN">India</option>
+                                <option value="NL">Netherlands</option>
+                                <option value="SE">Sweden</option>
+                                <option value="NO">Norway</option>
+                                <option value="DK">Denmark</option>
+                                <option value="FI">Finland</option>
+                                <option value="IE">Ireland</option>
+                                <option value="NZ">New Zealand</option>
+                                <option value="SG">Singapore</option>
+                                <option value="ES">Spain</option>
+                                <option value="IT">Italy</option>
+                                <option value="CH">Switzerland</option>
+                                <option value="AT">Austria</option>
+                                <option value="BE">Belgium</option>
+                                <option value="PT">Portugal</option>
+                                <option value="PL">Poland</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Card Details</label>
+                        <div id="payment-element" class="stripe-element"></div>
+                        <div id="payment-element-errors" class="field-error" role="alert"></div>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="submit-btn">
+                        <span class="btn-text">Pay <span id="submitPrice">$18.99</span><span id="submitPeriod">/month</span></span>
+                        <span class="btn-loading hidden">
+                            <span class="spinner small"></span> Processing payment...
+                        </span>
+                    </button>
+
+                    <p class="form-footer">
+                        By purchasing, you agree to our <a href="/legal/terms">Terms of Service</a> and <a href="/legal/privacy">Privacy Policy</a>.
+                    </p>
+                </form>
+
+                <div id="successView" class="hidden">
+                    <div class="success-icon">&#10003;</div>
+                    <h2>Payment Successful!</h2>
+                    <p id="successMessage">Welcome to Premier Pass. Your membership is now active.</p>
+                    <a href="/" class="success-btn">Start Playing</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="../../assets/js/global.js"></script>
+    <script type="module" src="../../assets/js/auth/statekeeper.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script type="module" src="../../assets/js/checkout/checkout.js"></script>
+</body>
+</html>
