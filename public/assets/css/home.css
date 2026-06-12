@@ -189,6 +189,12 @@
     flex-direction: column;
 }
 
+@media (max-width: 1500px) {
+    .membership {
+        width: 27vw;
+    }
+}
+
 @media (max-width: 1250px) {
     .membership-viewer {
         flex-direction: column;
