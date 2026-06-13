@@ -2,10 +2,10 @@ import { auth, getMembership } from "./global.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const ALL_PLANS = [
-    { plan: 'experience_monthly', productId: '6c5e0381-35ed-4d4e-8c79-5dd2ce4cb9e1', label: 'Experience Pass (Monthly)', price: 899, period: '/month' },
-    { plan: 'experience_yearly', productId: 'f892ff75-4afa-4383-b21a-41ffca5070ea', label: 'Experience Pass (Yearly)', price: 7999, period: '/year' },
-    { plan: 'premier_monthly', productId: '7c590130-db9e-4bdd-86ac-0ee642116e0f', label: 'Premier Pass (Monthly)', price: 1899, period: '/month' },
-    { plan: 'premier_yearly', productId: '3cd04937-ff66-4de5-a3bf-ae1e54933744', label: 'Premier Pass (Yearly)', price: 14999, period: '/year' },
+    { plan: 'experience_monthly', productId: '6c5e0381-35ed-4d4e-8c79-5dd2ce4cb9e1', label: 'Experience Pass (Monthly)', price: 299, period: '/month' },
+    { plan: 'experience_yearly', productId: 'f892ff75-4afa-4383-b21a-41ffca5070ea', label: 'Experience Pass (Yearly)', price: 2599, period: '/year' },
+    { plan: 'premier_monthly', productId: '7c590130-db9e-4bdd-86ac-0ee642116e0f', label: 'Premier Pass (Monthly)', price: 599, period: '/month' },
+    { plan: 'premier_yearly', productId: '3cd04937-ff66-4de5-a3bf-ae1e54933744', label: 'Premier Pass (Yearly)', price: 4599, period: '/year' },
 ];
 
 const PLAN_LABELS = Object.fromEntries(ALL_PLANS.map(p => [p.plan, p.label]));

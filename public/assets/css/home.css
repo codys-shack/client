@@ -21,7 +21,7 @@
     rgba(0, 0, 0, 0) 50%, 
     rgba(0, 0, 0, 0) 70%, 
     rgba(0, 0, 0, 1) 100%
-  ), url('../images/home/header_banner_placeholder.jpg');
+  ), url('../images/home/header_banner.png');
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -189,13 +189,13 @@
     flex-direction: column;
 }
 
-@media (max-width: 1500px) {
+@media (max-width: 1600px) {
     .membership {
         width: 27vw;
     }
 }
 
-@media (max-width: 1250px) {
+@media (max-width: 1350px) {
     .membership-viewer {
         flex-direction: column;
     }
@@ -284,4 +284,17 @@
 
 .membership .sold-out {
     display: none;
+}
+
+.membership-sign-in {
+    margin-bottom: 15px;
+}
+
+.membership-sign-in a {
+    text-decoration: none;
+    color: #5296ee;
+}
+
+.membership-sign-in a:hover {
+    text-decoration: underline;
 }
