@@ -1,0 +1,23 @@
+.card-disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    background-blend-mode: darken;
+    pointer-events: none;
+}
+
+.card-disabled h2 {
+    opacity: 100%;
+}
+
+.card-browser-hint {
+    position: absolute;
+    bottom: 0.75rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #fbbf24;
+    font-size: 1rem;
+    font-weight: 500;
+}

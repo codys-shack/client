@@ -3,10 +3,8 @@ import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/
 
 $(document).ready(function() {;
 
-    // Check if user is signed in
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            // User is signed in
             $('#navbar .nav-links').prepend(`<li><a href="/home/" class="play-now-signed-in-link">Play Now</a></li>`);
             $('#navbar .nav-links').append(`<li><a href="/account">Account</a></li>`);
             $('#navbar .nav-links').append(`<li><a href="#" id="logout">Logout</a></li>`);
@@ -14,12 +12,9 @@ $(document).ready(function() {;
             $('#play-now-link').remove();
 
             $('#play-now-splash-link').attr("href", "/home/");
-
-            // Membership changes go here
         }
     });
 
-    // Sign out the user
     $(document).on('click', '#logout', async function(e) {
         e.preventDefault();
         try {

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading... | Cody's Shack</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <p>Loading...</p>
+
+    <script type="module">
+        import { requireAuth } from "../assets/js/auth/auth-guard.js";
+        import { detectBrowser } from "../assets/js/utils/browser.js";
+
+        requireAuth().then(async user => {
+            const gameId = sessionStorage.getItem('playGameId');
+            sessionStorage.removeItem('playGameId');
+
+            if (!gameId) {
+                window.location.href = '/home/';
+                return;
+            }
+
+            const resp = await fetch('/shared/games.json');
+            const data = await resp.json();
+            const game = data.games.find(g => g.id.toLowerCase() === gameId.toLowerCase());
+            if (!game) {
+                window.location.href = '/home/';
+                return;
+            }
+
+            const browser = detectBrowser();
+            if (game.browsers && !game.browsers.includes(browser)) {
+                window.location.href = '/home/';
+                return;
+            }
+
+            document.cookie = 'playGameId=' + encodeURIComponent(game.id.toLowerCase()) + '; path=/; max-age=30';
+            window.location.reload();
+        }).catch(() => {});
+    </script>
+</body>
+</html>

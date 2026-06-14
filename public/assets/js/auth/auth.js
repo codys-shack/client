@@ -14,10 +14,8 @@ $(document).ready(function() {
     const userEmailDisplay = $('#user-email-display');
     const logoutBtn = $('#logout-btn');
 
-    // Determine if we are on the Sign In or Create Account page
     const isSignIn = !window.location.pathname.includes('join.html');
 
-    // Handle form submission
     authForm.on('submit', async function(e) {
         e.preventDefault();
         const email = $('#email').val();
@@ -36,7 +34,6 @@ $(document).ready(function() {
         }
     });
 
-    // Handle logout
     logoutBtn.on('click', async function() {
         try {
             await signOut(auth);
@@ -45,7 +42,6 @@ $(document).ready(function() {
         }
     });
 
-    // Monitor auth state
     onAuthStateChanged(auth, (user) => {
         if (user) {
             authCard.hide();
