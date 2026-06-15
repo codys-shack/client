@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luanti | Cody's Shack</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="module" src="/assets/js/global.js"></script>
+</head>
+<body>
+    <div id="game-container">Luanti</div>
+    <script type="module">
+        import { requireAuth } from "/assets/js/auth/auth-guard.js";
+        requireAuth().then(() => {
+            document.getElementById('game-container').style.display = 'block';
+        }).catch(() => {});
+    </script>
+</body>
+</html>
